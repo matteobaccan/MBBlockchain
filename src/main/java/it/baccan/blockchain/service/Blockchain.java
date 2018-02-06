@@ -42,17 +42,6 @@ public class Blockchain {
      * Blockcain constructor.
      */
     public Blockchain() {
-        // Transaction to add
-        Transaction t = new Transaction();
-        t.setSender("Matteo");
-        t.setReceiver("Matteo");
-        t.setAmount(0);
-
-        // Create mastre chaindata
-        Chaindata cd = Blockchain.createBlock(t, null);
-
-        // Add chain to che Blockchain
-        blockchain.add(cd);
     }
 
     /**
@@ -72,14 +61,17 @@ public class Blockchain {
      * @param lastBlock
      * @return
      */
-    public static Chaindata createBlock(Transaction t, Chaindata lastBlock) {
-        Gson gson = new GsonBuilder().create();
-
+    public Chaindata createBlock(Transaction t, Chaindata lastBlock) {
         // Chain
         Chaindata cd = new Chaindata();
         cd.setTimestamp(System.currentTimeMillis());
-        String payload = gson.toJson(t);
+
+        // GSOn serializer
+        Gson gson = new GsonBuilder().create();
+        String payload = gson.toJson(t);        
         cd.setPayload(payload);
+        
+        // If lastBlock exists
         if (lastBlock != null) {
             cd.setPreviousHash(lastBlock.getHash());
             cd.setIndex(lastBlock.getIndex() + 1);
@@ -88,6 +80,7 @@ public class Blockchain {
             cd.setIndex(1);
         }
 
+        // Figest SHA256
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest((payload + cd.getPreviousHash()).getBytes(StandardCharsets.UTF_8));
@@ -106,7 +99,11 @@ public class Blockchain {
      * @return
      */
     public Chaindata getLastBlock() {
-        return blockchain.get(blockchain.size() - 1);
+        Chaindata ret = null;
+        if (blockchain.size() > 0) {
+            ret = blockchain.get(blockchain.size() - 1);
+        }
+        return ret;
     }
 
     /**

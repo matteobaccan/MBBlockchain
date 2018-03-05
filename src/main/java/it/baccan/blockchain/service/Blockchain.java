@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2018 Matteo Baccan
+ * Distributed under the MIT software license, see the accompanying
+ * file COPYING or http://www.opensource.org/licenses/mit-license.php.
  */
 package it.baccan.blockchain.service;
 
@@ -14,11 +14,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import it.baccan.blockchain.chain.pojo.Chaindata;
 import it.baccan.blockchain.chain.pojo.Peerdata;
 import it.baccan.blockchain.chain.pojo.Transaction;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Base64;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +23,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Matteo
+ * @author Matteo Baccan
  */
 @Service
 @Slf4j
@@ -35,8 +31,10 @@ public class Blockchain {
 
     @Autowired Peer peers;
 
+    public final static int CHAIN_DIFFICULTY = 5;
+
     // Blockchain
-    private final ArrayList<Chaindata> blockchain = new ArrayList<>();
+    private final ArrayList<Block> blockchain = new ArrayList<>();
 
     /**
      * Blockcain constructor.
@@ -46,11 +44,11 @@ public class Blockchain {
 
     /**
      *
-     * @param cd
+     * @param block
      * @return
      */
-    public boolean addBlock(Chaindata cd) {
-        blockchain.add(cd);
+    public boolean addBlock(Block block) {
+        blockchain.add(block);
         return true;
     }
 
@@ -61,36 +59,26 @@ public class Blockchain {
      * @param lastBlock
      * @return
      */
-    public Chaindata createBlock(Transaction t, Chaindata lastBlock) {
+    public Block createBlock(Transaction t, Block lastBlock) {
         // Chain
         Chaindata cd = new Chaindata();
         cd.setTimestamp(System.currentTimeMillis());
 
         // GSOn serializer
         Gson gson = new GsonBuilder().create();
-        String payload = gson.toJson(t);        
+        String payload = gson.toJson(t);
         cd.setPayload(payload);
-        
+
         // If lastBlock exists
         if (lastBlock != null) {
-            cd.setPreviousHash(lastBlock.getHash());
-            cd.setIndex(lastBlock.getIndex() + 1);
+            cd.setPreviousHash(lastBlock.hash());
         } else {
             cd.setPreviousHash("");
-            cd.setIndex(1);
         }
 
-        // Figest SHA256
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest((payload + cd.getPreviousHash()).getBytes(StandardCharsets.UTF_8));
-            String hashString = Base64.getEncoder().encodeToString(hash);
-            cd.setHash(hashString);
-        } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
-            log.error("Error creating hash", noSuchAlgorithmException);
-        }
-
-        return cd;
+        Block ret = new Block(cd);
+        ret.mineBlock(CHAIN_DIFFICULTY);
+        return ret;
     }
 
     /**
@@ -98,8 +86,8 @@ public class Blockchain {
      *
      * @return
      */
-    public Chaindata getLastBlock() {
-        Chaindata ret = null;
+    public Block getLastBlock() {
+        Block ret = null;
         if (blockchain.size() > 0) {
             ret = blockchain.get(blockchain.size() - 1);
         }
@@ -111,7 +99,7 @@ public class Blockchain {
      *
      * @return
      */
-    public ArrayList<Chaindata> getChain() {
+    public ArrayList<Block> getChain() {
         return blockchain;
     }
 
@@ -131,16 +119,15 @@ public class Blockchain {
                 JsonNode body = chainDataResponse.getBody();
                 JSONArray ja = body.getArray();
 
-                ArrayList<Chaindata> peerBlockchain = new ArrayList<>();
+                ArrayList<Block> peerBlockchain = new ArrayList<>();
                 for (int n = 0; n < ja.length(); n++) {
                     JSONObject jo = (JSONObject) ja.get(n);
                     Chaindata node = new Chaindata();
                     node.setHash((String) jo.get("hash"));
-                    node.setIndex((Integer) jo.get("index"));
                     node.setPayload((String) jo.get("payload"));
                     node.setPreviousHash((String) jo.get("previousHash"));
                     node.setTimestamp((Long) jo.get("timestamp"));
-                    peerBlockchain.add(node);
+                    peerBlockchain.add(new Block(node));
                 }
 
                 // TODO validazione blockchainpeer

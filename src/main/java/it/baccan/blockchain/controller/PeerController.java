@@ -1,9 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2018 Matteo Baccan
+ * Distributed under the MIT software license, see the accompanying
+ * file COPYING or http://www.opensource.org/licenses/mit-license.php.
  */
-package it.baccan.blockchain;
+package it.baccan.blockchain.controller;
 
 import it.baccan.blockchain.chain.pojo.Peerdata;
 import it.baccan.blockchain.service.Peer;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author Matteo
+ * @author Matteo Baccan
  */
 @RestController
 @RequestMapping("/peer")

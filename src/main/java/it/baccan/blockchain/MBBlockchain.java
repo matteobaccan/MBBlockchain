@@ -16,7 +16,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
  *
- * @author Matteo
+ * @author Matteo Baccan
  */
 @SpringBootApplication
 @Slf4j

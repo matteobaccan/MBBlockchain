@@ -1,12 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (c) 2018 Matteo Baccan
+ * Distributed under the MIT software license, see the accompanying
+ * file COPYING or http://www.opensource.org/licenses/mit-license.php.
  */
-package it.baccan.blockchain;
+package it.baccan.blockchain.controller;
 
-import it.baccan.blockchain.chain.pojo.Chaindata;
 import it.baccan.blockchain.chain.pojo.Transaction;
+import it.baccan.blockchain.service.Block;
 import it.baccan.blockchain.service.Blockchain;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author Matteo
+ * @author Matteo Baccan
  */
 @RestController
 @RequestMapping("/chain")
@@ -35,7 +35,7 @@ public class BlockchainController {
      * @return
      */
     @GetMapping(value = "/list", produces = "application/json; charset=utf-8")
-    public ArrayList<Chaindata> chain() {
+    public ArrayList<Block> chain() {
         return blockchain.getChain();
     }
 
@@ -44,7 +44,7 @@ public class BlockchainController {
      * @return
      */
     @GetMapping(value = "/lastblock", produces = "application/json; charset=utf-8")
-    public Chaindata lastblock() {
+    public Block lastblock() {
         return blockchain.getLastBlock();
     }
 
@@ -78,8 +78,8 @@ public class BlockchainController {
         t.setAmount(new Random().nextInt());
 
         // Chain        
-        Chaindata cd = blockchain.createBlock(t, blockchain.getLastBlock());
-        blockchain.addBlock(cd);
+        Block block = blockchain.createBlock(t, blockchain.getLastBlock() );
+        blockchain.addBlock(block);
 
         // Return
         Map<String, String> ret = new HashMap(2);

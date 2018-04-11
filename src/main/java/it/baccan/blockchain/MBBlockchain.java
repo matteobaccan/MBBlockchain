@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2018 Matteo Baccan
+ * Distributed under the MIT software license, see the accompanying
+ * file COPYING or http://www.opensource.org/licenses/mit-license.php.
+ */
 package it.baccan.blockchain;
 
 import java.util.HashMap;

@@ -29,19 +29,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class Blockchain {
 
-    @Autowired Peer peers;
+    @Autowired private Peer peers;
 
     public final static int CHAIN_DIFFICULTY = 5;
 
     // Blockchain
     private final ArrayList<Block> blockchain = new ArrayList<>();
-
-    /**
-     * Blockcain constructor.
-     */
-    public Blockchain() {
-    }
-
+   
     /**
      *
      * @param block

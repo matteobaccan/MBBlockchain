@@ -8,8 +8,6 @@ package it.baccan.blockchain.service;
 import it.baccan.blockchain.chain.pojo.Chaindata;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
-import java.util.concurrent.TimeUnit;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 

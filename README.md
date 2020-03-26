@@ -7,5 +7,6 @@
 [![Build Status](https://travis-ci.org/matteobaccan/MBBlockchain.svg?branch=master)](https://travis-ci.org/matteobaccan/MBBlockchain)
 [![security status](https://www.meterian.io/badge/gh/matteobaccan/MBBlockchain/security)](https://www.meterian.io/report/gh/matteobaccan/MBBlockchain)
 [![stability status](https://www.meterian.io/badge/gh/matteobaccan/MBBlockchain/stability)](https://www.meterian.io/report/gh/matteobaccan/MBBlockchain)
+[![DepShield Badge](https://depshield.sonatype.org/badges/matteobaccan/MBBlockchain/depshield.svg)](https://depshield.github.io)
 
 A basic blockchain implementation written in Java

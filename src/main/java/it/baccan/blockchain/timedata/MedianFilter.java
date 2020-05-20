@@ -48,7 +48,7 @@ public class MedianFilter {
     public Long median() {
         Long ret;
         int vSortedSize = vSorted.length;
-        if ((vSortedSize & 1)==1) {
+        if ((vSortedSize & 1) == 1) {
             ret = vSorted[vSortedSize / 2];
         } else {
             ret = (vSorted[vSortedSize / 2 - 1] + vSorted[vSortedSize / 2]) / 2;

@@ -31,11 +31,14 @@ public class Blockchain {
 
     @Autowired private Peer peers;
 
+    /**
+     *
+     */
     public final static int CHAIN_DIFFICULTY = 5;
 
     // Blockchain
     private final ArrayList<Block> blockchain = new ArrayList<>();
-   
+
     /**
      *
      * @param block

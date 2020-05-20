@@ -18,14 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Block {
 
-    @Getter private Chaindata cd;
+    @Getter private Chaindata chainData;
 
     /**
+     * Block constructor.
      *
-     * @param cd
+     * @param chainData
      */
-    public Block(Chaindata cd) {
-        this.cd = cd;
+    public Block(Chaindata chainData) {
+        this.chainData = chainData;
 
         calculateHash();
     }
@@ -34,10 +35,10 @@ public class Block {
         // Figest SHA256
         try {
             StringBuilder string2Hash = new StringBuilder();
-            string2Hash.append(cd.getPreviousHash());
-            string2Hash.append(Long.toString(cd.getTimestamp()));
-            string2Hash.append(cd.getPayload());
-            string2Hash.append(Long.toString(cd.getNonce()));
+            string2Hash.append(chainData.getPreviousHash());
+            string2Hash.append(Long.toString(chainData.getTimestamp()));
+            string2Hash.append(chainData.getPayload());
+            string2Hash.append(Long.toString(chainData.getNonce()));
 
             // Digest
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -54,7 +55,7 @@ public class Block {
             }
 
             // Setter
-            cd.setHash(hashString.toString());
+            chainData.setHash(hashString.toString());
         } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
             log.error("Error creating hash", noSuchAlgorithmException);
         }
@@ -65,7 +66,7 @@ public class Block {
      * @return
      */
     public String hash() {
-        return cd.getHash();
+        return chainData.getHash();
     }
 
     /**
@@ -77,14 +78,14 @@ public class Block {
     public void mineBlock(int difficulty) {
         long nIni = System.nanoTime();
         log.info("Ask for mining {}", difficulty);
-        cd.setNonce(0);
+        chainData.setNonce(0);
         String target = new String(new char[difficulty]).replace('\0', '0');
-        while (!cd.getHash().substring(0, difficulty).equals(target)) {
-            cd.setNonce(cd.getNonce() + 1);
+        while (!chainData.getHash().substring(0, difficulty).equals(target)) {
+            chainData.setNonce(chainData.getNonce() + 1);
             calculateHash();
         }
         long nEnd = System.nanoTime();
-        log.info("Block Mined : {} : in {} ms", cd.getHash(), (nEnd - nIni) / 1000000);
+        log.info("Block Mined : {} : in {} ms", chainData.getHash(), (nEnd - nIni) / 1000000);
     }
 
     /**
@@ -94,7 +95,7 @@ public class Block {
      */
     public boolean isMined(int difficulty) {
         String target = new String(new char[difficulty]).replace('\0', '0');
-        return cd.getHash().substring(0, difficulty).equals(target);
+        return chainData.getHash().substring(0, difficulty).equals(target);
     }
 
 }

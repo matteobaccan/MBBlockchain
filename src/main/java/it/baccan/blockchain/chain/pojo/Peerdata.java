@@ -17,5 +17,5 @@ public class Peerdata {
 
     private String ip;
     private String port;
-    
+
 }

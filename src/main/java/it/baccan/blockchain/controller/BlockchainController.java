@@ -78,7 +78,7 @@ public class BlockchainController {
         t.setAmount(new Random().nextInt());
 
         // Chain        
-        Block block = blockchain.createBlock(t, blockchain.getLastBlock() );
+        Block block = blockchain.createBlock(t, blockchain.getLastBlock());
         blockchain.addBlock(block);
 
         // Return

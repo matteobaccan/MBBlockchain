@@ -18,7 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Block {
 
-    @Getter private Chaindata chainData;
+    @Getter
+    private Chaindata chainData;
 
     /**
      * Block constructor.

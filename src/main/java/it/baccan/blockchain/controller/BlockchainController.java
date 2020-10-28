@@ -27,7 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class BlockchainController {
 
-    @Autowired private Blockchain blockchain;
+    @Autowired
+    private Blockchain blockchain;
 
     /**
      * Return the blockchain list

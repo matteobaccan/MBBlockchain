@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class PeerController {
 
-    @Autowired private Peer peers;
+    @Autowired
+    private Peer peers;
 
     /**
      * Add a peer to the network.

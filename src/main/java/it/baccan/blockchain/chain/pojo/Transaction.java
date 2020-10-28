@@ -5,14 +5,13 @@
  */
 package it.baccan.blockchain.chain.pojo;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  *
  * @author Matteo Baccan
  */
-@Setter @Getter
+@Data
 public class Transaction {
 
     private String sender;

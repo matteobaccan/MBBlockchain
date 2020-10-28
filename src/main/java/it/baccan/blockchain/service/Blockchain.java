@@ -29,7 +29,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class Blockchain {
 
-    @Autowired private Peer peers;
+    @Autowired
+    private Peer peers;
 
     /**
      *

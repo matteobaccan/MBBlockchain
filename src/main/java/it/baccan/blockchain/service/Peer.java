@@ -7,6 +7,7 @@ package it.baccan.blockchain.service;
 
 import it.baccan.blockchain.chain.pojo.Peerdata;
 import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,7 @@ public class Peer {
      *
      * @return
      */
-    public ArrayList<Peerdata> list() {
+    public List<Peerdata> list() {
         return peers;
     }
 }

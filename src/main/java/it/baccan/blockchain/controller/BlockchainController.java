@@ -10,6 +10,7 @@ import it.baccan.blockchain.service.Block;
 import it.baccan.blockchain.service.Blockchain;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,7 @@ public class BlockchainController {
      * @return
      */
     @GetMapping(value = "/list", produces = "application/json; charset=utf-8")
-    public ArrayList<Block> chain() {
+    public List<Block> chain() {
         return blockchain.getChain();
     }
 
@@ -57,7 +58,7 @@ public class BlockchainController {
     public Map<String, String> resolveConflicts() {
         blockchain.resolveConflicts();
         // Return
-        Map<String, String> ret = new HashMap(2);
+        Map<String, String> ret = new HashMap<>(2);
         ret.put("result", "ok");
 
         return ret;
@@ -83,7 +84,7 @@ public class BlockchainController {
         blockchain.addBlock(block);
 
         // Return
-        Map<String, String> ret = new HashMap(2);
+        Map<String, String> ret = new HashMap<>(2);
         ret.put("result", "ok");
 
         return ret;

@@ -77,7 +77,7 @@ public class MBBlockchain {
             }
 
             Map<String, Object> props = new HashMap<>();
-            props.put("server.port", new Long(portNumber).longValue());
+            props.put("server.port", Long.parseLong(portNumber));
             props.put("server.address", ipNumber);
 
             new SpringApplicationBuilder()

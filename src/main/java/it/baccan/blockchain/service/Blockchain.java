@@ -15,6 +15,7 @@ import it.baccan.blockchain.chain.pojo.Chaindata;
 import it.baccan.blockchain.chain.pojo.Peerdata;
 import it.baccan.blockchain.chain.pojo.Transaction;
 import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,10 +36,10 @@ public class Blockchain {
     /**
      *
      */
-    public final static int CHAIN_DIFFICULTY = 5;
+    public static final int CHAIN_DIFFICULTY = 5;
 
     // Blockchain
-    private final ArrayList<Block> blockchain = new ArrayList<>();
+    private final ArrayList<Block> blockchainData = new ArrayList<>();
 
     /**
      *
@@ -46,7 +47,7 @@ public class Blockchain {
      * @return
      */
     public boolean addBlock(Block block) {
-        blockchain.add(block);
+        blockchainData.add(block);
         return true;
     }
 
@@ -86,8 +87,8 @@ public class Blockchain {
      */
     public Block getLastBlock() {
         Block ret = null;
-        if (blockchain.size() > 0) {
-            ret = blockchain.get(blockchain.size() - 1);
+        if (blockchainData.size() > 0) {
+            ret = blockchainData.get(blockchainData.size() - 1);
         }
         return ret;
     }
@@ -97,15 +98,15 @@ public class Blockchain {
      *
      * @return
      */
-    public ArrayList<Block> getChain() {
-        return blockchain;
+    public List<Block> getChain() {
+        return blockchainData;
     }
 
     /**
      * Resolve BlockChain conflicts using the bigger blockchain.
      */
     public void resolveConflicts() {
-        ArrayList<Peerdata> apd = peers.list();
+        List<Peerdata> apd = peers.list();
         for (Peerdata pd : apd) {
             HttpResponse<JsonNode> chainDataResponse;
             try {
@@ -130,9 +131,9 @@ public class Blockchain {
 
                 // TODO validazione blockchainpeer
                 // Sostituisco sempre
-                if (peerBlockchain.size() > blockchain.size()) {
-                    blockchain.clear();
-                    blockchain.addAll(peerBlockchain);
+                if (peerBlockchain.size() > blockchainData.size()) {
+                    blockchainData.clear();
+                    blockchainData.addAll(peerBlockchain);
                 }
 
             } catch (UnirestException ex) {

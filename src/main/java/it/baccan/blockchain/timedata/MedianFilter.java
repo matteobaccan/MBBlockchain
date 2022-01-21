@@ -23,7 +23,7 @@ public class MedianFilter {
      * @param filterSize
      */
     public MedianFilter(int filterSize) {
-        vValues = new ArrayList<Long>();
+        vValues = new ArrayList<>();
         vSorted = vValues.toArray(vSorted);
         size = filterSize;
     }

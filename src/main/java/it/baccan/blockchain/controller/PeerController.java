@@ -9,6 +9,7 @@ import it.baccan.blockchain.chain.pojo.Peerdata;
 import it.baccan.blockchain.service.Peer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class PeerController {
         // Add to peerList
         peers.addPeer(ip, port);
 
-        Map<String, String> ret = new HashMap(2);
+        Map<String, String> ret = new HashMap<>(2);
         ret.put("result", "ok");
 
         return ret;
@@ -52,7 +53,7 @@ public class PeerController {
      * @return
      */
     @GetMapping(value = "/list", produces = "application/json; charset=utf-8")
-    public ArrayList<Peerdata> list() {
+    public List<Peerdata> list() {
         return peers.list();
     }
 

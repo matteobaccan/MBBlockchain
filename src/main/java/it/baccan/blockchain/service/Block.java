@@ -48,7 +48,7 @@ public class Block {
             byte[] hash = digest.digest(string2Hash.toString().getBytes());
 
             // HEX
-            String HEXES = "0123456789ABCDEF";
+            final String HEXES = "0123456789ABCDEF";
             StringBuilder hashString = new StringBuilder(2 * hash.length);
             for (byte b : hash) {
                 hashString.append(HEXES.charAt((b & 0xF0) >> 4))

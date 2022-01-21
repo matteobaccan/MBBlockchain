@@ -7,7 +7,6 @@ package it.baccan.blockchain.controller;
 
 import it.baccan.blockchain.chain.pojo.Peerdata;
 import it.baccan.blockchain.service.Peer;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

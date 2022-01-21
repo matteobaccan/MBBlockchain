@@ -8,7 +8,6 @@ package it.baccan.blockchain.controller;
 import it.baccan.blockchain.chain.pojo.Transaction;
 import it.baccan.blockchain.service.Block;
 import it.baccan.blockchain.service.Blockchain;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
